@@ -1,12 +1,8 @@
 import logging
 from typing import Any
-
-# import gradio as gr
-
 from utils.constants import FrenchStyle, UnitsFrenchForm, OutputType
 import streamlit as st
 from french_converter import FrenchConverter
-
 from parsers import *
 
 logger = logging.getLogger(__name__)
@@ -72,8 +68,7 @@ def convert_to_french(nums_str: str, french_style: str, output_type: str) -> Any
 
 
 def main():
-    # Initializes the Gradio App
-    # Interface utilisateur Streamlit
+    # Initializes the streamlit App
     st.title("Kata: Number to French Converter")
 
     french_style_options = [style.value for style in FrenchStyle]
@@ -86,53 +81,10 @@ def main():
     output_type_dropdown_txt = st.selectbox("Desired Output Type", [OutputType.JSON.value, OutputType.LIST.value], index=output_type_options.index(OutputType.default()))
 
     if st.button("Convert to French Form"):
-        # Appeler la fonction de conversion
         french_output = convert_to_french(input_numbers_txt, french_style_dropdown_txt, output_type_dropdown_txt)
 
-        # Afficher le résultat
         st.write("French Form of the input number list:")
         st.write(french_output)
-
-    # with gr.Blocks(title="Kata: Number to French Converter") as gradio_app:
-    #     gr.Markdown(
-    #     """
-    #     # Kata: Number to French Converter
-    #     """
-    #     )
-    #
-    #     with gr.Tab("Using Text"):
-    #         input_numbers_txt = gr.Text(
-    #             label="Input List of Numbers (Comma Separated, as shown in placeholder)",
-    #             placeholder="[0, 10]"
-    #         )
-    #
-    #         french_style_dropdown_txt = gr.Dropdown(
-    #             choices=[_.value for _ in FrenchStyle],
-    #             label="Select a French Style",
-    #             value=FrenchStyle.FRANCE_FRENCH.value
-    #         )
-    #
-    #         output_type_dropdown_txt = gr.Dropdown(
-    #             choices=[_.value for _ in OutputType],
-    #             label="Desired Output Type",
-    #             value=OutputType.JSON.value
-    #         )
-    #
-    #         text_buttton = gr.Button("Convert to French Form",
-    #                                  variant="primary",
-    #                                  scale=0)
-    #
-    #         output_json = gr.Json(label="French Form of the input number list")
-    #
-    #         text_buttton.click(convert_to_french,
-    #                            inputs=[input_numbers_txt,
-    #                                    french_style_dropdown_txt,
-    #                                    output_type_dropdown_txt],
-    #                            outputs=output_json)
-    #
-    #
-    #     logger.info("Launching Gradio App Interface for accepting inputs!")
-    #     gradio_app.launch()
 
 
 if __name__ == '__main__':
